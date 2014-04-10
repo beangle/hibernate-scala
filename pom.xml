@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>org.beangle</groupId>
+    <artifactId>beangle-scala</artifactId>
+    <version>12</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.beangle.hibernate</groupId>
+  <artifactId>beangle-hibernate-scala</artifactId>
+  <version>0.0.1</version>
+  <packaging>jar</packaging>
+  <name>Beangle Hibernate Scala Support</name>
+
+  <properties>
+    <bundle.symbolicName>org.beangle.hibernate</bundle.symbolicName>
+    <bundle.namespace>org.beangle.hibernate</bundle.namespace>
+    <jpa.version>1.0.0.Final</jpa.version>
+    <jta.version>1.1</jta.version>
+    <hibernate.version>4.3.1.Final</hibernate.version>
+    <hibernate.validator.version>5.0.2.Final</hibernate.validator.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate.version}</version>
+      <optional>true</optional>
+    </dependency>
+  <dependency>
+    <groupId>org.beangle.commons</groupId>
+    <artifactId>beangle-commons-core</artifactId>
+    <version>4.0.4</version>
+  </dependency>
+  </dependencies>
+</project>

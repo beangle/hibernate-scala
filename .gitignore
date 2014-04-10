@@ -1,10 +1,24 @@
+*~
+.*
+
+# Build output directies
+target
+
+# Eclipse specific files/directories
+.classpath
+.project
+.settings
+.metadata
+
 *.class
 *.log
 
+#idea
+*.iml
+*.ipr
+*.iws
+
 # sbt specific
-.cache/
-.history/
-.lib/
 dist/*
 target/
 lib_managed/
@@ -14,4 +28,4 @@ project/plugins/project/
 
 # Scala-IDE specific
 .scala_dependencies
-.worksheet
+test-output
