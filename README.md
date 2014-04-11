@@ -35,7 +35,8 @@ Edit hibernate xml mapping file
 
 for example:
 
-	<hibernate-mapping package="org.beangle.hibernate.testbean" default-access="org.beangle.hibernate.PropertyAccessor">
+	<hibernate-mapping package="org.beangle.hibernate.testbean" 
+	                   default-access="org.beangle.hibernate.PropertyAccessor">
 	
 		<class name="org.beangle.hibernate.testbean.User" >
 			<id name="id" unsaved-value="0" type="long" >
