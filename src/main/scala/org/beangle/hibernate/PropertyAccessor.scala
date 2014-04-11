@@ -16,18 +16,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Beangle.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.beangle.hibernate.property
+package org.beangle.hibernate
 
-import java.lang.reflect.{Member, Method}
-import java.{util => ju}
-
+import java.lang.reflect.{ Member, Method }
+import java.{ util => ju }
 import org.beangle.commons.lang.Throwables
 import org.beangle.commons.lang.reflect.ClassInfo
-import org.hibernate.{PropertyAccessException, PropertyNotFoundException, PropertySetterAccessException}
-import org.hibernate.engine.spi.{SessionFactoryImplementor, SessionImplementor}
-import org.hibernate.property.{BasicPropertyAccessor, Getter, Setter}
+import org.hibernate.{ PropertyAccessException, PropertyNotFoundException, PropertySetterAccessException }
+import org.hibernate.engine.spi.{ SessionFactoryImplementor, SessionImplementor }
+import org.hibernate.property.{ BasicPropertyAccessor, Getter, Setter }
+import java.{ util => ju }
 
-object ScalaPropertyAccessor {
+object PropertyAccessor {
 
   def createSetter(theClass: Class[_], propertyName: String): Setter = {
     ClassInfo.get(theClass).getWriter(propertyName) match {
@@ -102,10 +102,10 @@ object ScalaPropertyAccessor {
     def readResolve(): Object = createGetter(clazz, propertyName);
   }
 }
-class ScalaPropertyAccessor extends BasicPropertyAccessor {
+class PropertyAccessor extends BasicPropertyAccessor {
 
-  override def getSetter(theClass: Class[_], propertyName: String): Setter = ScalaPropertyAccessor.createSetter(theClass, propertyName)
+  override def getSetter(theClass: Class[_], propertyName: String): Setter = PropertyAccessor.createSetter(theClass, propertyName)
 
-  override def getGetter(theClass: Class[_], propertyName: String): Getter = ScalaPropertyAccessor.createGetter(theClass, propertyName)
+  override def getGetter(theClass: Class[_], propertyName: String): Getter = PropertyAccessor.createGetter(theClass, propertyName)
 
 }

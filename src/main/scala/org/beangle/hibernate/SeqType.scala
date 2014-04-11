@@ -16,39 +16,36 @@
  * You should have received a copy of the GNU Lesser General def License
  * along with Beangle.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.beangle.hibernate.usertype
+package org.beangle.hibernate
 
 import java.{ util => ju }
-
-import scala.collection.JavaConversions.asJavaIterator
-import scala.collection.mutable
-
-import org.beangle.hibernate.collection.PersistentSet
-import org.hibernate.collection.spi.PersistentCollection
+import scala.collection.mutable.ListBuffer
+import org.beangle.hibernate.collection.PersistentSeq
 import org.hibernate.engine.spi.SessionImplementor
 import org.hibernate.persister.collection.CollectionPersister
 import org.hibernate.usertype.UserCollectionType
+import scala.collection.mutable.Buffer
+import java.{util => ju}
 /**
- * Mutable Set Type
+ * Mutable Seq Type
  */
-class SetType extends UserCollectionType {
-  type MSet = mutable.Set[Object]
-  def instantiate(session: SessionImplementor, persister: CollectionPersister) = new PersistentSet(session)
+class SeqType extends UserCollectionType {
+  def instantiate(session: SessionImplementor, persister: CollectionPersister) = new PersistentSeq(session)
 
   import scala.collection.JavaConversions.asJavaIterator
-  def wrap(session: SessionImplementor, collection: Object) = new PersistentSet(session, collection.asInstanceOf[MSet]);
+  def wrap(session: SessionImplementor, collection: Object) = new PersistentSeq(session, collection.asInstanceOf[Buffer[Object]])
 
-  def getElementsIterator(collection: Object) = asJavaIterator(collection.asInstanceOf[MSet].iterator)
+  def getElementsIterator(collection: Object) = asJavaIterator(collection.asInstanceOf[Buffer[_]].iterator)
 
-  def contains(collection: Object, entity: Object) = collection.asInstanceOf[MSet].contains(entity)
+  def contains(collection: Object, entity: Object) = collection.asInstanceOf[Buffer[_]].contains(entity)
 
-  def indexOf(collection: Object, entity: Object): Object = null
+  def indexOf(collection: Object, entity: Object) = Integer.valueOf(collection.asInstanceOf[Buffer[Object]].indexOf(entity))
 
   def replaceElements(original: Object, target: Object, persister: CollectionPersister, owner: Object, copyCache: ju.Map[_, _], session: SessionImplementor) = {
-    val targetSeq = target.asInstanceOf[MSet]
+    val targetSeq = target.asInstanceOf[Buffer[Any]]
     targetSeq.clear()
-    targetSeq ++= original.asInstanceOf[Seq[Object]]
+    targetSeq ++= original.asInstanceOf[Seq[Any]]
   }
 
-  def instantiate(anticipatedSize: Int): Object = new mutable.HashSet[Object]
+  def instantiate(anticipatedSize: Int): Object = new ListBuffer[Object]()
 }

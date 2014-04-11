@@ -16,40 +16,36 @@
  * You should have received a copy of the GNU Lesser General def License
  * along with Beangle.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.beangle.hibernate.usertype
+package org.beangle.hibernate
 
 import java.{ util => ju }
-
-import scala.collection.JavaConversions.asJavaIterator
 import scala.collection.mutable
-
-import org.beangle.hibernate.collection.PersistentMap
-import org.hibernate.collection.spi.PersistentCollection
+import org.beangle.hibernate.collection.PersistentSet
 import org.hibernate.engine.spi.SessionImplementor
 import org.hibernate.persister.collection.CollectionPersister
 import org.hibernate.usertype.UserCollectionType
+import java.{util => ju}
 /**
- * Mutable Map Type
+ * Mutable Set Type
  */
-class MapType extends UserCollectionType {
-  type MMap = mutable.Map[Object, Object]
-
-  def instantiate(session: SessionImplementor, persister: CollectionPersister) = new PersistentMap(session)
+class SetType extends UserCollectionType {
+  type MSet = mutable.Set[Object]
+  def instantiate(session: SessionImplementor, persister: CollectionPersister) = new PersistentSet(session)
 
   import scala.collection.JavaConversions.asJavaIterator
-  def wrap(session: SessionImplementor, collection: Object) = new PersistentMap(session, collection.asInstanceOf[MMap])
+  def wrap(session: SessionImplementor, collection: Object) = new PersistentSet(session, collection.asInstanceOf[MSet]);
 
-  def getElementsIterator(collection: Object) = asJavaIterator(collection.asInstanceOf[MMap].iterator)
+  def getElementsIterator(collection: Object) = asJavaIterator(collection.asInstanceOf[MSet].iterator)
 
-  def contains(collection: Object, entity: Object) = collection.asInstanceOf[MMap].contains(entity)
+  def contains(collection: Object, entity: Object) = collection.asInstanceOf[MSet].contains(entity)
 
   def indexOf(collection: Object, entity: Object): Object = null
 
   def replaceElements(original: Object, target: Object, persister: CollectionPersister, owner: Object, copyCache: ju.Map[_, _], session: SessionImplementor) = {
-    val targetSeq = target.asInstanceOf[MMap]
+    val targetSeq = target.asInstanceOf[MSet]
     targetSeq.clear()
-    targetSeq ++= original.asInstanceOf[MMap]
+    targetSeq ++= original.asInstanceOf[Seq[Object]]
   }
 
-  def instantiate(anticipatedSize: Int): Object = new mutable.HashMap[Object, Object]
+  def instantiate(anticipatedSize: Int): Object = new mutable.HashSet[Object]
 }
