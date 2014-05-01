@@ -4,6 +4,7 @@
 
 <hibernate-configuration>
 <session-factory>
+  <mapping resource="org/beangle/hibernate/Types.hbm.xml"/>
   <mapping resource="org/beangle/hibernate/testbean/model.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>

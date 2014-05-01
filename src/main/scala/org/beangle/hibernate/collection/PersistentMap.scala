@@ -6,7 +6,6 @@ import java.{ util => ju }
 
 import scala.collection.JavaConversions.asJavaIterator
 import scala.collection.mutable
-import org.beangle.commons.lang.Range._
 import org.hibernate.`type`.Type
 import org.hibernate.collection.internal.AbstractPersistentCollection
 import org.hibernate.collection.internal.AbstractPersistentCollection.{ DelayedOperation, UNKNOWN }
@@ -18,7 +17,7 @@ class PersistentMap(val session: SessionImplementor, var map: mutable.Map[Object
   extends AbstractPersistentCollection with mutable.Map[Object, Object] {
   type MM = mutable.Map[Object, Object]
   type MHM = mutable.HashMap[Object, Object]
-  
+
   private var loadingEntries = new mutable.ListBuffer[Array[Object]]
   setInitialized();
   setDirectlyAccessible(true);
@@ -49,7 +48,7 @@ class PersistentMap(val session: SessionImplementor, var map: mutable.Map[Object
     val array = disassembled.asInstanceOf[Array[jo.Serializable]]
     val size = array.length
     beforeInitialize(persister, size)
-    range(0, size, 2) foreach { i =>
+    Range(0, size, 2) foreach { i =>
       map.put(persister.getIndexType().assemble(array(i), getSession(), owner), persister.getElementType().assemble(array(i + 1), getSession(), owner))
     }
   }

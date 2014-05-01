@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.beangle</groupId>
     <artifactId>beangle-scala</artifactId>
-    <version>12</version>
+    <version>14-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.beangle.hibernate</groupId>
@@ -30,7 +30,7 @@
     <dependency>
       <groupId>org.beangle.commons</groupId>
       <artifactId>beangle-commons-core</artifactId>
-      <version>4.0.4</version>
+      <version>4.1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>commons-dbcp</groupId>

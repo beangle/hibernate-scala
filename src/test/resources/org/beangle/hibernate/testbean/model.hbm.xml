@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="org.beangle.hibernate.testbean" default-access="org.beangle.hibernate.PropertyAccessor">
 
@@ -9,11 +9,11 @@
 		  <generator class="assigned"/>
 		</id>
 		<property name="name" length="50" unique="true"/>
-		<set name="roles" collection-type="org.beangle.hibernate.SetType" table="users_roles">
+		<set name="roles" collection-type="set" table="users_roles">
 		  <key column="user_id"/>
 		  <many-to-many entity-name="org.beangle.hibernate.testbean.Role" column="role_id"/>
 		</set>
-		<property name="age" type="org.beangle.hibernate.IntType"/>
+		<property name="age" type="int?"/>
 	</class>
 
 	<class name="org.beangle.hibernate.testbean.Role" >

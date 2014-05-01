@@ -1,0 +1,16 @@
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping"
+ xsi:schemaLocation="http://www.hibernate.org/xsd/hibernate-mapping classpath://org/hibernate/hibernate-mapping-4.0.xsd" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ 
+    <typedef name="seq" class="org.beangle.hibernate.SeqType"/>
+    <typedef name="set" class="org.beangle.hibernate.SetType"/>
+    <typedef name="map" class="org.beangle.hibernate.MapType"/>
+    
+    <typedef name="byte?" class="org.beangle.hibernate.ByteType"/>
+    <typedef name="char?" class="org.beangle.hibernate.CharType"/>
+    <typedef name="int?" class="org.beangle.hibernate.IntType"/>
+    <typedef name="bool?" class="org.beangle.hibernate.BooleanType"/>
+    <typedef name="long?" class="org.beangle.hibernate.LongType"/>
+    <typedef name="float?" class="org.beangle.hibernate.FloatType"/>
+    <typedef name="double?" class="org.beangle.hibernate.DoubleType"/>
+</hibernate-mapping>

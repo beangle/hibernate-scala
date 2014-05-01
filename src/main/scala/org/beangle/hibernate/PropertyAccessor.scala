@@ -99,7 +99,7 @@ object PropertyAccessor {
 
     override def toString(): String = "BasicGetter(" + clazz.getName() + '.' + propertyName + ')'
 
-    def readResolve(): Object = createGetter(clazz, propertyName);
+    def readResolve(): Object = createGetter(clazz, propertyName)
   }
 }
 class PropertyAccessor extends BasicPropertyAccessor {
