@@ -6,11 +6,11 @@
     <typedef name="set" class="org.beangle.hibernate.SetType"/>
     <typedef name="map" class="org.beangle.hibernate.MapType"/>
     
-    <typedef name="byte?" class="org.beangle.hibernate.ByteType"/>
-    <typedef name="char?" class="org.beangle.hibernate.CharType"/>
-    <typedef name="int?" class="org.beangle.hibernate.IntType"/>
-    <typedef name="bool?" class="org.beangle.hibernate.BooleanType"/>
-    <typedef name="long?" class="org.beangle.hibernate.LongType"/>
-    <typedef name="float?" class="org.beangle.hibernate.FloatType"/>
-    <typedef name="double?" class="org.beangle.hibernate.DoubleType"/>
+    <typedef name="byte?" class="org.beangle.hibernate.OptionByteType"/>
+    <typedef name="char?" class="org.beangle.hibernate.OptionCharType"/>
+    <typedef name="int?" class="org.beangle.hibernate.OptionIntType"/>
+    <typedef name="bool?" class="org.beangle.hibernate.OptionBooleanType"/>
+    <typedef name="long?" class="org.beangle.hibernate.OptionLongType"/>
+    <typedef name="float?" class="org.beangle.hibernate.OptionFloatType"/>
+    <typedef name="double?" class="org.beangle.hibernate.OptionDoubleType"/>
 </hibernate-mapping>

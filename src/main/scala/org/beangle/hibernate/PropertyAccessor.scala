@@ -21,7 +21,7 @@ package org.beangle.hibernate
 import java.lang.reflect.{ Member, Method }
 import java.{ util => ju }
 import org.beangle.commons.lang.Throwables
-import org.beangle.commons.lang.reflect.ClassInfo
+import org.beangle.commons.lang.reflect.BeanManifest
 import org.hibernate.{ PropertyAccessException, PropertyNotFoundException, PropertySetterAccessException }
 import org.hibernate.engine.spi.{ SessionFactoryImplementor, SessionImplementor }
 import org.hibernate.property.{ BasicPropertyAccessor, Getter, Setter }
@@ -30,14 +30,14 @@ import java.{ util => ju }
 object PropertyAccessor {
 
   def createSetter(theClass: Class[_], propertyName: String): Setter = {
-    ClassInfo.get(theClass).getWriter(propertyName) match {
+    BeanManifest.get(theClass).getSetter(propertyName) match {
       case Some(m) => new BasicSetter(theClass, m.method, propertyName)
       case None => throw new PropertyNotFoundException("Could not find a setter for " + propertyName + " in class " + theClass.getName())
     }
   }
 
   def createGetter(theClass: Class[_], propertyName: String): Getter = {
-    ClassInfo.get(theClass).getReader(propertyName) match {
+    BeanManifest.get(theClass).getGetter(propertyName) match {
       case Some(m) => new BasicGetter(theClass, m.method, propertyName)
       case None => throw new PropertyNotFoundException("Could not find a getter for " + propertyName + " in class " + theClass.getName())
     }

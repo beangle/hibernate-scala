@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.beangle</groupId>
     <artifactId>beangle-scala</artifactId>
-    <version>14-SNAPSHOT</version>
+    <version>15</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.beangle.hibernate</groupId>

@@ -51,17 +51,17 @@ abstract class OptionBasicType[T](clazz: Class[T]) extends UserType {
   def assemble(cached: jo.Serializable, owner: Object): Object = cached.asInstanceOf[Object]
 }
 
-class CharType extends OptionBasicType(classOf[jl.Character])
+class OptionCharType extends OptionBasicType(classOf[jl.Character])
 
-class ByteType extends OptionBasicType(classOf[jl.Byte])
+class OptionByteType extends OptionBasicType(classOf[jl.Byte])
 
-class IntType extends OptionBasicType(classOf[jl.Integer])
+class OptionIntType extends OptionBasicType(classOf[jl.Integer])
 
-class BooleanType extends OptionBasicType(classOf[jl.Boolean])
+class OptionBooleanType extends OptionBasicType(classOf[jl.Boolean])
 
-class LongType extends OptionBasicType(classOf[jl.Long])
+class OptionLongType extends OptionBasicType(classOf[jl.Long])
 
-class FloatType extends OptionBasicType(classOf[jl.Float])
+class OptionFloatType extends OptionBasicType(classOf[jl.Float])
 
-class DoubleType extends OptionBasicType(classOf[jl.Double])
+class OptionDoubleType extends OptionBasicType(classOf[jl.Double])
 
