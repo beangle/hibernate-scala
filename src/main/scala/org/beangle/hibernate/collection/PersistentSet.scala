@@ -14,8 +14,8 @@ import org.hibernate.engine.spi.SessionImplementor
 import org.hibernate.loader.CollectionAliases
 import org.hibernate.persister.collection.CollectionPersister
 
-class PersistentSet(val session: SessionImplementor, var set: mutable.Set[Object] = null)
-  extends AbstractPersistentCollection with collection.mutable.Set[Object] {
+class PersistentSet(session: SessionImplementor, var set: mutable.Set[Object] = null)
+  extends AbstractPersistentCollection(session) with collection.mutable.Set[Object] {
 
   protected var tempList = new mutable.ListBuffer[Object]
   setInitialized();

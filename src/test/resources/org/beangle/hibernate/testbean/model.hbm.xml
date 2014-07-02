@@ -13,6 +13,10 @@
 		  <key column="user_id"/>
 		  <many-to-many entity-name="org.beangle.hibernate.testbean.Role" column="role_id"/>
 		</set>
+		<bag name="role2s" collection-type="seq" table="users_role2s">
+          <key column="user_id"/>
+          <many-to-many entity-name="org.beangle.hibernate.testbean.Role" column="role_id"/>
+        </bag>
 		<property name="age" type="int?"/>
 	</class>
 

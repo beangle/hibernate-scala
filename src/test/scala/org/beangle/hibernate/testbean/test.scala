@@ -1,17 +1,16 @@
 package org.beangle.hibernate.testbean
 
 import java.util.Properties
-
-import org.apache.commons.dbcp.{ConnectionFactory, DriverManagerConnectionFactory, PoolableConnectionFactory, PoolingDataSource}
+import org.apache.commons.dbcp.{ ConnectionFactory, DriverManagerConnectionFactory, PoolableConnectionFactory, PoolingDataSource }
 import org.apache.commons.pool.impl.GenericObjectPool
 import org.beangle.commons.io.IOs
 import org.beangle.commons.lang.ClassLoaders
-import org.hibernate.{SessionFactory, SessionFactoryObserver}
+import org.hibernate.{ SessionFactory, SessionFactoryObserver }
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder
-import org.hibernate.cfg.{AvailableSettings, Configuration}
+import org.hibernate.cfg.{ AvailableSettings, Configuration }
 import org.hibernate.dialect.Oracle10gDialect
-
 import javax.sql.DataSource
+import scala.collection.mutable.ListBuffer
 
 class Test
 
@@ -29,6 +28,7 @@ object Test {
     val hibernateProperties = new java.util.Properties()
     hibernateProperties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory")
     hibernateProperties.put("hibernate.hbm2ddl.auto", "create")
+    hibernateProperties.put("hibernate.show_sql", "true")
     // do session factory build.
     val serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties).build()
 
@@ -39,11 +39,12 @@ object Test {
       }
     })
     val sf = configuration.buildSessionFactory(serviceRegistry)
-    
+
     val s = sf.openSession()
     val user = new User(1)
     val role = new Role(1)
     user.roles += role
+    user.role2s.asInstanceOf[ListBuffer[Role]] += role
     user.age = Some(20)
     s.save(user)
     val saved = s.get(classOf[User], user.id).asInstanceOf[User]

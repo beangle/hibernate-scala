@@ -13,8 +13,8 @@ import org.hibernate.engine.spi.SessionImplementor
 import org.hibernate.loader.CollectionAliases
 import org.hibernate.persister.collection.CollectionPersister
 
-class PersistentMap(val session: SessionImplementor, var map: mutable.Map[Object, Object] = null)
-  extends AbstractPersistentCollection with mutable.Map[Object, Object] {
+class PersistentMap(session: SessionImplementor, var map: mutable.Map[Object, Object] = null)
+  extends AbstractPersistentCollection(session) with mutable.Map[Object, Object] {
   type MM = mutable.Map[Object, Object]
   type MHM = mutable.HashMap[Object, Object]
 

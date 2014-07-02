@@ -21,21 +21,20 @@ package org.beangle.hibernate.collection
 import java.{ io => jo }
 import java.sql.ResultSet
 import java.{ util => ju }
+
+import scala.Range
 import scala.collection.JavaConversions.asJavaIterator
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.{ Buffer, ListBuffer }
+
 import org.hibernate.`type`.Type
 import org.hibernate.collection.internal.AbstractPersistentCollection
 import org.hibernate.collection.internal.AbstractPersistentCollection.{ DelayedOperation, UNKNOWN }
 import org.hibernate.engine.spi.SessionImplementor
 import org.hibernate.loader.CollectionAliases
 import org.hibernate.persister.collection.CollectionPersister
-import scala.collection.mutable.Buffer
 
-class PersistentSeq(val session: SessionImplementor, var list: Buffer[Object] = null)
+class PersistentSeq(session: SessionImplementor, var list: Buffer[Object] = null)
   extends AbstractPersistentCollection(session) with collection.mutable.Buffer[Object] {
-
-  setInitialized()
-  setDirectlyAccessible(true)
 
   override def getSnapshot(persister: CollectionPersister): jo.Serializable = {
     val clonedList = new ListBuffer[Object]
@@ -57,7 +56,7 @@ class PersistentSeq(val session: SessionImplementor, var list: Buffer[Object] = 
   override def isSnapshotEmpty(snapshot: jo.Serializable): Boolean = (snapshot.asInstanceOf[Seq[_]]).isEmpty
 
   override def beforeInitialize(persister: CollectionPersister, anticipatedSize: Int) {
-    this.list = persister.getCollectionType().instantiate(anticipatedSize).asInstanceOf[ListBuffer[Object]]
+    this.list = new ListBuffer[Object]
   }
 
   override def initializeFromCache(persister: CollectionPersister, disassembled: jo.Serializable, owner: Object) {
@@ -71,11 +70,14 @@ class PersistentSeq(val session: SessionImplementor, var list: Buffer[Object] = 
 
   override def readFrom(rs: ResultSet, persister: CollectionPersister, descriptor: CollectionAliases, owner: Object): Object = {
     val element = persister.readElement(rs, owner, descriptor.getSuffixedElementAliases(), getSession())
-    val index = persister.readIndex(rs, descriptor.getSuffixedIndexAliases(), getSession()).asInstanceOf[Integer].intValue()
-
-    //pad with nulls from the current last element up to the new index
-    Range(list.size, index + 1) foreach { i => list.insert(i, null) }
-    list.insert(index, element)
+    if (null == descriptor.getSuffixedIndexAliases()) {
+      list += element
+    } else {
+      val index = persister.readIndex(rs, descriptor.getSuffixedIndexAliases(), getSession()).asInstanceOf[Integer].intValue()
+      //pad with nulls from the current last element up to the new index
+      Range(list.size, index + 1) foreach { i => list.insert(i, null) }
+      list.insert(index, element)
+    }
     element
   }
 
